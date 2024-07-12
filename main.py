@@ -9,13 +9,14 @@ from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
 from aiogram.filters import CommandStart, Command
 from aiogram.methods import ForwardMessages
-from aiogram.types import Message, MessageOriginChannel
+from aiogram.types import Message, MessageOriginChannel, Chat
 
-from note_editor import config, Note
+from note_editor import Note
+from config import config
 
 # Bot token can be obtained via https://t.me/BotFather
 # TOKEN = getenv()
-TOKEN = config["BOT"]["TOKEN"]
+TOKEN = config.TOKEN
 
 # All handlers should be attached to the Router (or Dispatcher)
 
@@ -114,6 +115,11 @@ async def read_note(message: Message):
     """
     message.delete
     await message.answer()
+
+@dp.channel_post(Command(prefix="/",commands="check"))
+async def read_note(message: Chat, post: Message):
+    id = message.id
+    await post.answer(id)
 
 @dp.channel_post()
 async def create_note(message: Message):

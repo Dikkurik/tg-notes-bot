@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
-import configparser, os
+import os
+from config import config
 
-config = configparser.ConfigParser()
-config.read("config.cfg", encoding="UTF-8")
 
 
 class Note():
@@ -10,8 +9,8 @@ class Note():
         """
         Define notes folder and extension for file.
         """
-        self._path_to_folder = config["FOLDERS"]["NOTE_FOLDER"]
-        self._ext = config["FOLDERS"]["FILE_EXT"]
+        self._path_to_folder = config.NOTE_FOLDER
+        self._ext = config.FILE_EXT
 
     def createNote(self, message: str):
         """
